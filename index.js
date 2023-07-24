@@ -28,7 +28,11 @@ const artifactName = core.getInput("artifact-name");
         createArtifactFolder: false
     });
 
-    await exec.exec(`java -jar spigot-${version}.jar`);
+    await exec.exec(`java -jar spigot-${version}.jar`, undefined, {
+        stdout: (data) => {
+            console.log(`stdout: "${data}"`);
+        }
+    });
 })().catch(err => {
     core.setFailed(`Failed to test plugin: ${err}`);
 });
