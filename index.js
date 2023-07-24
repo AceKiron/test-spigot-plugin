@@ -30,8 +30,10 @@ const artifactName = core.getInput("artifact-name");
     await exec.exec(`java -jar spigot-${version}.jar`, undefined, {
         listeners: {
             stdout: (data) => {
-                // [20:52:20 INFO]: Done (2.928s)! For help, type "help"
-                console.log(`stdout: "${data}"`);
+                console.log(`stdout: "${data.toString()}"`);
+                if (data.toString().match(/^\[\S INFO\]: Done \(.s\)! For help, type "help"$/) != null) {
+                    console.log("finish");
+                }
             },
             stderr: (data) => {
     
