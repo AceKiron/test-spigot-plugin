@@ -23,14 +23,19 @@ const artifactName = core.getInput("artifact-name");
     await exec.exec(`java -jar BuildTools.jar --rev ${version}`);
     
     await io.mkdirP(path.join(__dirname, "plugins"));
-
-    const downloadResponse = await artifactClient.downloadArtifact(artifactName, path.join(__dirname, "plugins"), {
+    await artifactClient.downloadArtifact(artifactName, path.join(__dirname, "plugins"), {
         createArtifactFolder: false
     });
 
     await exec.exec(`java -jar spigot-${version}.jar`, undefined, {
-        stdout: (data) => {
-            console.log(`stdout: "${data}"`);
+        listeners: {
+            stdout: (data) => {
+                // [20:52:20 INFO]: Done (2.928s)! For help, type "help"
+                console.log(`stdout: "${data}"`);
+            },
+            stderr: (data) => {
+    
+            }
         }
     });
 })().catch(err => {
