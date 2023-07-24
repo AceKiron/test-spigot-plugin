@@ -9,5 +9,5 @@ inputs:
     required: false
     default: "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"
 runs:
-  using: "node19"
+  using: "node16"
   main: "index.js"
