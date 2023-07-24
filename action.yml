@@ -1,0 +1,13 @@
+name: "Test Spigot plugin"
+description: "Test your Minecraft plugin on any version of Spigot"
+inputs:
+  minecraft-version:
+    description: "What Minecraft version to test your Spigot plugin on"
+    required: true
+  buildtools:
+    description: "Direct download link of the Spigot BuildTools"
+    required: false
+    default: "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"
+runs:
+  using: "node19"
+  main: "index.js"
