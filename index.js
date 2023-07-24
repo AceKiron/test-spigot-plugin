@@ -27,18 +27,18 @@ const artifactName = core.getInput("artifact-name");
         createArtifactFolder: false
     });
 
-    await exec.exec(`java -jar spigot-${version}.jar`, undefined, {
+    const promise = exec.exec(`java -jar spigot-${version}.jar`, undefined, {
         listeners: {
             stdout: (data) => {
-                console.log(`stdout: "${data.toString()}"`);
-                if (data.toString().match(/^\[\S INFO\]: Done \(.s\)! For help, type "help"$/) != null) {
+                if (data.toString().match(/\[\S INFO\]: Done \(.s\)! For help, type "help"\n/g) != null) {
                     console.log("finish");
                 }
             },
             stderr: (data) => {
     
             }
-        }
+        },
+        input: "stop"
     });
 })().catch(err => {
     core.setFailed(`Failed to test plugin: ${err}`);
