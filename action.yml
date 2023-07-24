@@ -8,6 +8,9 @@ inputs:
     description: "Direct download link of the Spigot BuildTools"
     required: false
     default: "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"
+  artifact-name:
+    description: "The name of the artifact where your plugin is stored"
+    required: true
 runs:
   using: "node16"
   main: "index.js"
