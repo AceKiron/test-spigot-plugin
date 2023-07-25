@@ -20,6 +20,13 @@ class Test {
         this.requiredMessagesLeft = requiredMessages;
     }
 
+    markRequiredMessageCompleted(message) {
+        const index = this.requiredMessagesLeft.indexOf(message);
+        if (index > -1) {
+            this.requiredMessagesLeft.splice(index, 1);
+        }
+    }
+
     isSuccess() {
         if (this.requiredMessagesLeft.length > 0) return false;
         return true;
@@ -73,8 +80,7 @@ const test = new Test();
                 else {
                     for (const message of test.requiredMessagesLeft) {
                         if (data.toString().match(new RegExp(`^\\[.+INFO\\]: ${message}`)) != null) {
-                            console.log("Hello world!");
-                            delete test.requiredMessagesLeft[test.requiredMessagesLeft.indexOf(message)];
+                            test.markRequiredMessageCompleted(message);
                             break;
                         }
                     }
