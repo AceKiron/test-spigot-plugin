@@ -13,8 +13,13 @@ const version = core.getInput("minecraft-version");
 const buildtools = core.getInput("buildtools");
 const artifactName = core.getInput("artifact-name");
 
-(async function() {
-    console.log(yaml.parse(fs.readFileSync(path.join(".", ".acekiron", "test-spigot-plugin.yml")))["required-messages"]);
+const yamlFile = yaml.parse(fs.readFileSync(path.join(".", ".acekiron", "test-spigot-plugin.yml")));
+console.log(yamlFile);
+// console.log(yaml.parse(fs.readFileSync(path.join(".", ".acekiron", "test-spigot-plugin.yml")))["required-messages"]);
+
+// (async function() {
+
+    // console.log(yaml.parse(fs.readFileSync(path.join(".", ".acekiron", "test-spigot-plugin.yml")))["required-messages"]);
 
     // switch (version) {
     //     case "1.13.2": case "1.14.4": case "1.15.2": case "1.16.5":
@@ -64,6 +69,6 @@ const artifactName = core.getInput("artifact-name");
     //     },
     //     input: "stop"
     // });
-})().catch(err => {
-    core.setFailed(`Failed to test plugin: ${err}`);
-});
+// })().catch(err => {
+//     core.setFailed(`Failed to test plugin: ${err}`);
+// });
