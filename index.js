@@ -72,13 +72,11 @@ const test = new Test();
 
                 else {
                     for (const message of test.requiredMessagesLeft) {
-                        console.log(new RegExp(`^\\[.+INFO\\]: ${message}`));
-                        break;
-                        // if (data.toString().match(new RegExp(`^\\[.+INFO\\]: ${message}`)) != null) {
-                        //     console.log("Hello world!");
-                        //     delete test.requiredMessagesLeft[test.requiredMessagesLeft.indexOf(message)];
-                        //     break;
-                        // }
+                        if (data.toString().match(new RegExp(`^\\[.+INFO\\]: ${message}`)) != null) {
+                            console.log("Hello world!");
+                            delete test.requiredMessagesLeft[test.requiredMessagesLeft.indexOf(message)];
+                            break;
+                        }
                     }
                 }
             },
