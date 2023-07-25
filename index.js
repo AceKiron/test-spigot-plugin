@@ -85,6 +85,10 @@ const test = new Test();
         },
         input: "stop"
     });
+
+    if (!test.isSuccess()) {
+        core.setFailed(`Test failed\n${test.requiredMessagesLeft.toString()}`);
+    }
 })().catch(err => {
     core.setFailed(`Failed to test plugin: ${err}`);
 });
