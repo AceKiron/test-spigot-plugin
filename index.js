@@ -22,7 +22,7 @@ class Test {
         console.log(`Mark required message as completed: ${message}`);
         const index = this.requiredMessagesLeft.indexOf(message);
         console.log(index);
-        if (index > -1) this.requiredMessagesLeft = this.requiredMessagesLeft.splice(index, 1);
+        if (index > -1) this.requiredMessagesLeft.splice(index, 1);
     }
 
     isSuccess() {
