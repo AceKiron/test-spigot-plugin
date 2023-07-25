@@ -52,7 +52,7 @@ const artifactName = core.getInput("artifact-name");
                 if (data.toString().match(/^\[\S+ WARN\].+/)) console.warn(data.toString());
                 else if (data.toString().match(/^\[\S+ ERROR\].+/)) console.error(data.toString());
 
-                else if (data.toString().match(/^\[\S+ INFO\]: Done \(.+s\)! For help, type "help"\n/g) != null) console.log("finish");
+                else if (data.toString().match(/^\[.+INFO\]: Done \(.+s\)! For help, type "help"\n/g) != null) console.log("finish");
             },
             stderr: (data) => {
                 console.error(data.toString());
