@@ -20,14 +20,14 @@ const artifactName = core.getInput("artifact-name");
         await exec.exec(`curl -o eula.txt https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/accept-eula.txt`);
     }
 
-    await exec.exec(`java -jar BuildTools.jar --rev ${version}`);
+    await exec.exec(`java -jar BuildTools.jar --rev ${version} --dev`);
     
     await io.mkdirP(path.join(__dirname, "plugins"));
     await artifactClient.downloadArtifact(artifactName, path.join(__dirname, "plugins"), {
         createArtifactFolder: false
     });
 
-    await exec.exec("ls -a plugins");
+    await exec.exec(`ls -a ${path.join(__dirname, "plugins"}`);
 
     const promise = exec.exec(`java -jar spigot-${version}.jar`, undefined, {
         listeners: {
