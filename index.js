@@ -14,13 +14,7 @@ const artifactName = core.getInput("artifact-name");
 (async function() {
     switch (version) {
         case "1.13.2": case "1.14.4": case "1.15.2": case "1.16.5":
-            await exec.exec("sudo add-apt-repository ppa:linuxuprising/java");
-            await exec.exec("sudo apt update");
-            await exec.exec("sudo apt install oracle-java16-installer --install-recommends");
-            // await exec.exec("");
-            // await exec.exec("");
-            // await exec.exec("");
-            // await exec.exec("sudo apt install ./jdk-16.0.2_linux-x64_bin.deb");
+            await exec.exec("sudo apt install java-common openjdk-8-jdk openjdk-8-jre");
             await exec.exec("sudo update-java-alternatives --list");
             
             break;
