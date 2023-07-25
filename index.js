@@ -15,7 +15,7 @@ const artifactName = core.getInput("artifact-name");
     switch (version) {
         case "1.13.2": case "1.14.4": case "1.15.2": case "1.16.5":
             await exec.exec("sudo apt install java-common openjdk-8-jdk openjdk-8-jre");
-            await exec.exec("sudo update-java-alternatives --list");
+            await exec.exec("sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64");
             
             break;
 
