@@ -16,7 +16,8 @@ const artifactName = core.getInput("artifact-name");
 (async function() {
     // console.log(yaml.parse(fs.readFileSync(path.join(__dirname, ".acekiron", "test-spigot-plugin.yml"))["required-messages"]);
     // console.log(fs.readFileSync(path.join(__dirname, ".acekiron", "test-spigot-plugin.yml")));
-    await exec.exec("ls -a ./.acekiron");
+    await exec.exec(`cat ${path.join(__dirname, ".acekiron", "test-spigot-plugin.yml")}`);
+    
 
     // switch (version) {
     //     case "1.13.2": case "1.14.4": case "1.15.2": case "1.16.5":
