@@ -3,7 +3,9 @@ const exec = require("@actions/exec");
 const io = require("@actions/io");
 const artifact = require("@actions/artifact");
 
+const fs = require("fs");
 const path = require("path");
+const yaml = require("yaml");
 
 const artifactClient = artifact.create();
 
@@ -12,7 +14,7 @@ const buildtools = core.getInput("buildtools");
 const artifactName = core.getInput("artifact-name");
 
 (async function() {
-    await exec.exec("ls -a .");
+    console.log(yaml.parse(fs.readFileSync(".acekiron/test-spigot-plugin.yml")).requiredMessages);
 
     switch (version) {
         case "1.13.2": case "1.14.4": case "1.15.2": case "1.16.5":
