@@ -14,7 +14,7 @@ const buildtools = core.getInput("buildtools");
 const artifactName = core.getInput("artifact-name");
 
 (async function() {
-    console.log(yaml.parse(fs.readFileSync(path.join(".", ".acekiron", "test-spigot-plugin.yml"))["required-messages"]));
+    console.log(yaml.parse(fs.readFileSync(path.join(".", ".acekiron", "test-spigot-plugin.yml")))["required-messages"]);
 
     // switch (version) {
     //     case "1.13.2": case "1.14.4": case "1.15.2": case "1.16.5":
