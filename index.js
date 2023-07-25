@@ -73,6 +73,7 @@ const test = new Test();
 
                 else {
                     for (const message of test.requiredMessagesLeft) {
+                        console.log(new RegExp(`^\\[.+INFO\\]: ${message}`));
                         if (data.toString().match(new RegExp(`^\\[.+INFO\\]: ${message}`)) != null) {
                             test.markRequiredMessageCompleted(message);
                             break;
