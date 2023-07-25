@@ -14,8 +14,8 @@ const artifactName = core.getInput("artifact-name");
 (async function() {
     switch (version) {
         case "1.13.2": case "1.14.4": case "1.15.2": case "1.16.5":
-            if (core.isDebug()) await exec.exec("curl -v -o jdk-16.0.2_linux-x64_bin.deb https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html#license-lightbox");
-            else await exec.exec("curl -o jdk-16.0.2_linux-x64_bin.deb https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html#license-lightbox");
+            if (core.isDebug()) await exec.exec("curl -v -o jdk-16.0.2_linux-x64_bin.deb https://download.oracle.com/otn/java/jdk/16.0.2%2B7/d4a915d82b4c4fbb9bde534da945d746/jdk-16.0.2_linux-x64_bin.deb");
+            else await exec.exec("curl -o jdk-16.0.2_linux-x64_bin.deb https://download.oracle.com/otn/java/jdk/16.0.2%2B7/d4a915d82b4c4fbb9bde534da945d746/jdk-16.0.2_linux-x64_bin.deb");
             
             await exec.exec("sudo apt install ./jdk-16.0.2_linux-x64_bin.deb");
             await exec.exec("sudo update-java-alternatives --list");
