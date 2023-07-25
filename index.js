@@ -21,6 +21,7 @@ class Test {
     markRequiredMessageCompleted(message) {
         console.log(`Mark required message as completed: ${message}`);
         const index = this.requiredMessagesLeft.indexOf(message);
+        console.log(index);
         if (index > -1) this.requiredMessagesLeft = this.requiredMessagesLeft.splice(index, 1);
     }
 
@@ -62,7 +63,7 @@ const test = new Test();
         createArtifactFolder: false
     });
 
-    const promise = exec.exec(`java -jar spigot-${version}.jar`, undefined, {
+    await exec.exec(`java -jar spigot-${version}.jar`, undefined, {
         listeners: {
             stdout: (data) => {
                 if (data.toString().match(/^\[.+WARN\].+/)) console.warn(data.toString());
