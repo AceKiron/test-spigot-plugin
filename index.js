@@ -27,8 +27,6 @@ const artifactName = core.getInput("artifact-name");
         createArtifactFolder: false
     });
 
-    await exec.exec(`ls -a ${path.join(__dirname, "plugins")}`);
-
     const promise = exec.exec(`java -jar spigot-${version}.jar`, undefined, {
         input: "stop"
     });
