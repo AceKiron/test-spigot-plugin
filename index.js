@@ -32,10 +32,10 @@ const artifactName = core.getInput("artifact-name");
     const promise = exec.exec(`java -jar spigot-${version}.jar`, undefined, {
         listeners: {
             stdout: (data) => {
-                if (data.toString().match(/^\[\S+ WARN].+/)) console.warn(data.toString());
-                if (data.toString().match(/^\[\S+ ERROR].+/)) console.error(data.toString());
+                if (data.toString().match(/^\[\S+ WARN\].+/)) console.warn(data.toString());
+                else if (data.toString().match(/^\[\S+ ERROR\].+/)) console.error(data.toString());
 
-                if (data.toString().match(/^\[\S+ INFO\]: Done \(.s\)! For help, type "help"\n/g) != null) console.log("finish");
+                else if (data.toString().match(/^\[\S+ INFO\]: Done \(.s\)! For help, type "help"\n/g) != null) console.log("finish");
             },
             stderr: (data) => {
                 console.error(data.toString());
