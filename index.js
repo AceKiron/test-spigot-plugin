@@ -21,6 +21,7 @@ class Test {
     }
 
     markRequiredMessageCompleted(message) {
+        console.log(`Mark required message as completed: ${message}`);
         const index = this.requiredMessagesLeft.indexOf(message);
         if (index > -1) {
             this.requiredMessagesLeft.splice(index, 1);
