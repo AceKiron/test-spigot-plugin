@@ -12,7 +12,8 @@ const buildtools = core.getInput("buildtools");
 const artifactName = core.getInput("artifact-name");
 
 (async function() {
-    await exec.exec("sudo apt install openjdk-17-jdk openjdk-17-jre");
+    await exec.exec("sudo apt install java-common openjdk-17-jdk openjdk-17-jre");
+    await exec.exec("update-java-alternatives --list");
 
     if (core.isDebug()) {
         await exec.exec(`curl -v -o BuildTools.jar ${buildtools}`);
@@ -22,7 +23,7 @@ const artifactName = core.getInput("artifact-name");
         await exec.exec(`curl -o eula.txt https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/accept-eula.txt`);
     }
 
-    await exec.exec(`java -jar BuildTools.jar --rev ${version}`);
+    await exec.exec(`java -jar BuildTools.jar --rev ${version} --compile spigot`);
     
     await io.mkdirP(path.join(__dirname, "plugins"));
     await artifactClient.downloadArtifact(artifactName, path.join(__dirname, "plugins"), {
