@@ -14,19 +14,23 @@ const artifactName = core.getInput("artifact-name");
 (async function() {
     switch (version) {
         case "1.13.2": case "1.14.4": case "1.15.2": case "1.16.5":
-            await exec.exec("sudo add-apt-repository ppa:linuxuprising/java");
-            await exec.exec("sudo apt update");
-            await exec.exec("sudo apt install oracle-java16-installer");
+            if (core.isDebug()) await exec.exec("curl -v -o jdk-16.0.2_linux-x64_bin.deb https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html#license-lightbox");
+            else await exec.exec("curl -o jdk-16.0.2_linux-x64_bin.deb https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html#license-lightbox");
+            
+            await exec.exec("sudo apt install ./jdk-16.0.2_linux-x64_bin.deb");
             await exec.exec("sudo update-java-alternatives --list");
+            
             break;
 
         case "1.17.1": case "1.18.2": case "1.19.4": case "1.20.1":
             await exec.exec("sudo apt install java-common openjdk-17-jdk openjdk-17-jre");
             await exec.exec("sudo update-java-alternatives --set /usr/lib/jvm/java-1.17.0-openjdk-amd64");
+            
             break;
         
         default:
             core.setFailed(`Unsupported Minecraft version: ${version}`);
+            
             return;
     }
 
