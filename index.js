@@ -13,7 +13,7 @@ const artifactName = core.getInput("artifact-name");
 
 (async function() {
     await exec.exec("sudo apt install java-common openjdk-17-jdk openjdk-17-jre");
-    await exec.exec("update-java-alternatives --list");
+    await exec.exec("sudo update-java-alternatives --set /usr/lib/jvm/java-1.17.0-openjdk-amd64");
 
     if (core.isDebug()) {
         await exec.exec(`curl -v -o BuildTools.jar ${buildtools}`);
