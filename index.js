@@ -69,11 +69,8 @@ const test = new Test();
                 if (data.toString().match(/^\[.+WARN\].+/)) console.warn(data.toString());
                 else if (data.toString().match(/^\[.+ERROR\].+/)) console.error(data.toString());
 
-                else if (data.toString().match(/^\[.+INFO\]: Done \(.+s\)! For help, type "help"\n/g) != null) console.log("finish");
-
                 else {
                     for (const message of test.requiredMessagesLeft) {
-                        console.log(new RegExp(`^\\[.+INFO\\]: ${message}`));
                         if (data.toString().match(new RegExp(`^\\[.+INFO\\]: ${message}`)) != null) {
                             test.markRequiredMessageCompleted(message);
                             break;
