@@ -57,8 +57,8 @@ const test = new Test();
 
     await exec.exec(`java -jar BuildTools.jar --rev ${version} --compile spigot`);
     
-    await io.mkdirP(path.join(__dirname, "plugins"));
-    await artifactClient.downloadArtifact(artifactName, path.join(__dirname, "plugins"), {
+    await io.mkdirP(path.join(".", "plugins"));
+    await artifactClient.downloadArtifact(artifactName, path.join(".", "plugins"), {
         createArtifactFolder: false
     });
 
