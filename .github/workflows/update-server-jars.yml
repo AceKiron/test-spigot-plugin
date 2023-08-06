@@ -22,3 +22,16 @@ jobs:
       
       - name: Update ${{ matrix.minecraft-versions }} server JAR
         run: node ./update.js ${{ matrix.minecraft-versions }}
+      
+      - name: Commit update
+        run: |
+          git add spigot-${{ matrix.minecraft-versions }}.jar
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "Update spigot-${{ matrix.minecraft-versions }}.jar"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

@@ -10,9 +10,13 @@ function exec(command) {
     }
 }
 
+const VERSION = process.argv[2];
+const TOKEN = process.argv[3];
+const BRANCH = process.argv[4];
+
 exec("sudo apt update");
 
-switch (process.argv[2]) {
+switch (VERSION) {
     case "1.13.2": case "1.14.4": case "1.15.2": case "1.16.5":
         exec("sudo apt install java-common openjdk-8-jdk openjdk-8-jre");
         exec("sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64");
@@ -28,13 +32,4 @@ switch (process.argv[2]) {
 }
 
 exec("curl -o BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar");
-exec(`java -jar BuildTools.jar --rev ${process.argv[2]} --compile spigot`);
-
-try {
-    exec(`git add spigot-${process.argv[2]}.jar`);
-    exec(`git commit -m "Update ${process.argv[2]} server JAR"`);
-    exec("git push -u origin main");
-} catch (err) {
-    console.warn("Couldn't push updated JAR, perhaps nothing changed?");
-    console.warn(err.message);
-}
+exec(`java -jar BuildTools.jar --rev ${VERSION} --compile spigot`);
