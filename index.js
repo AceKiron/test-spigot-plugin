@@ -51,21 +51,23 @@ const test = new Test();
     }
 
     if (core.isDebug()) {
-        await exec.exec(`curl -v -o BuildTools.jar ${buildtools}`);
+        // await exec.exec(`curl -v -o BuildTools.jar ${buildtools}`);
+        await exec.exec(`curl -v -o spigot.jar https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/spigot-${version}.jar`);
         await exec.exec(`curl -v -o eula.txt https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/accept-eula.txt`);
     } else {
-        await exec.exec(`curl -o BuildTools.jar ${buildtools}`);
+        // await exec.exec(`curl -o BuildTools.jar ${buildtools}`);
+        await exec.exec(`curl -o spigot.jar https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/spigot-${version}.jar`);
         await exec.exec(`curl -o eula.txt https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/accept-eula.txt`);
     }
 
-    await exec.exec(`java -jar BuildTools.jar --rev ${version} --compile spigot`);
+    // await exec.exec(`java -jar BuildTools.jar --rev ${version} --compile spigot`);
     
     await io.mkdirP(path.join(".", "plugins"));
     await artifactClient.downloadArtifact(artifactName, path.join(".", "plugins"), {
         createArtifactFolder: false
     });
 
-    await exec.exec(`java -jar spigot-${version}.jar`, undefined, {
+    await exec.exec(`java -jar spigot.jar`, undefined, {
         listeners: {
             stdout: (data) => {
                 console.log(data.toString().split("\n").length);

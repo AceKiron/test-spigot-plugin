@@ -18,5 +18,7 @@ switch (process.argv[2]) {
         process.exit(-1);
 }
 
+console.log("Made it to checkpoint 1");
 cp.execSync("curl -o BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar");
+console.log("Made it to checkpoint 2");
 cp.execSync(`java -jar BuildTools.jar --rev ${process.argv[2]} --compile spigot`);
