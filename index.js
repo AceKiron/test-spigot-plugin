@@ -68,15 +68,17 @@ const test = new Test();
     await exec.exec(`java -jar spigot-${version}.jar`, undefined, {
         listeners: {
             stdout: (data) => {
-                if (data.toString().match(/^\[.+WARN\].+/)) console.warn(data.toString());
-                else if (data.toString().match(/^\[.+ERROR\].+/)) console.error(data.toString());
+                console.log(data.split("\n").length);
+                for (const line of data.toString().split("\n")) {
+                    if (line.match(/^\[.+WARN\].+/)) console.warn(line);
+                    else if (line.match(/^\[.+ERROR\].+/)) console.error(line);
 
-                else {
-                    for (const message of test.requiredMessagesLeft) {
-                        console.log(message.split("\n").length);
-                        if (data.toString().match(new RegExp(`\\[.+INFO\\]: ${message}`)) != null) {
-                            test.markRequiredMessageCompleted(message);
-                            break;
+                    else {
+                        for (const message of test.requiredMessagesLeft) {
+                            if (line.match(new RegExp(`\\[.+INFO\\]: ${message}`)) != null) {
+                                test.markRequiredMessageCompleted(message);
+                                break;
+                            }
                         }
                     }
                 }
