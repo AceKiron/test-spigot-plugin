@@ -1,9 +1,13 @@
 const fs = require("fs");
 const cp = require("child_process");
 
-// Default max buffer of 256MB
-function exec(command, maxBuffer=1024*1024*256) {
-    return cp.execSync(command);
+function exec(command) {
+    try {
+        return cp.execSync(command);
+    } catch (err) {
+        console.warn(err.message);
+        return cp.execSync(command, { stdio: "ignore" });
+    }
 }
 
 exec("sudo apt update");
