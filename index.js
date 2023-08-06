@@ -73,7 +73,8 @@ const test = new Test();
 
                 else {
                     for (const message of test.requiredMessagesLeft) {
-                        if (data.toString().match(new RegExp(`^\\[.+INFO\\]: ${message}`)) != null) {
+                        console.log(message.split("\n").length);
+                        if (data.toString().match(new RegExp(`\\[.+INFO\\]: ${message}`)) != null) {
                             test.markRequiredMessageCompleted(message);
                             break;
                         }
