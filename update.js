@@ -20,7 +20,7 @@ switch (process.argv[2]) {
 
 cp.execSync("curl -o BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar");
 // cp.execSync(`java -jar BuildTools.jar --rev ${process.argv[2]} --compile spigot`);
-cp.exec(`java -jar BuildTools.jar --rev ${process.argv[2]} --compile spigot`, (error, stdout, stderr) => {
+cp.exec(`java -jar BuildTools.jar --rev ${process.argv[2]} --compile spigot`, {maxBuffer: 1024 * 1024}, (error, stdout, stderr) => {
     if (error) {
         console.error(`exec error: ${error}`);
         return;
