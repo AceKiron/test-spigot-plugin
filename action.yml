@@ -4,10 +4,6 @@ inputs:
   minecraft-version:
     description: "What Minecraft version to test your Spigot plugin on"
     required: true
-  buildtools:
-    description: "Direct download link of the Spigot BuildTools"
-    required: false
-    default: "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"
   artifact-name:
     description: "The name of the artifact where your plugin is stored"
     required: true

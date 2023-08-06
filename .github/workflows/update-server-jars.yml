@@ -1,0 +1,30 @@
+name: Update server JARs
+on:
+  push:
+    paths:
+      - "**.js"
+  workflow_dispatch:
+
+jobs:
+  update-jar:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        minecraft-versions: [ 1.13.2, 1.14.4, 1.15.2, 1.16.5, 1.17.1, 1.18.2, 1.19.4, 1.20.1 ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "latest"
+      
+      - name: Update ${{ matrix.minecraft-versions }} server JAR
+        run: node ./update.js ${{ matrix.minecraft-versions }}
+      
+      - name: Upload updated server JAR
+        run: |
+          git add .
+          git commit -m "Update ${{ matrix.minecraft-versions }} server JAR"
+          git push -u origin main

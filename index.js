@@ -68,7 +68,7 @@ const test = new Test();
     await exec.exec(`java -jar spigot-${version}.jar`, undefined, {
         listeners: {
             stdout: (data) => {
-                console.log(data.split("\n").length);
+                console.log(data.toString().split("\n").length);
                 for (const line of data.toString().split("\n")) {
                     if (line.match(/^\[.+WARN\].+/)) console.warn(line);
                     else if (line.match(/^\[.+ERROR\].+/)) console.error(line);
