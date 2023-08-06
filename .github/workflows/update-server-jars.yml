@@ -22,9 +22,3 @@ jobs:
       
       - name: Update ${{ matrix.minecraft-versions }} server JAR
         run: node ./update.js ${{ matrix.minecraft-versions }}
-      
-      - name: Upload updated server JAR
-        run: |
-          git add spigot-${{ matrix.minecraft-versions }}.jar
-          git commit -m "Update ${{ matrix.minecraft-versions }} server JAR"
-          git push -u origin main
