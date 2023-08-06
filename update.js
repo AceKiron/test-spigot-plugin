@@ -3,12 +3,14 @@ const cp = require("child_process");
 
 function exec(command) {
     try {
-        return cp.execSync(command);
+        return cp.execSync(command, {
+            maxBuffer: 1024 * 1024 * 512 // 512MB
+        });
     } catch (err) {
         console.warn(err.message);
         return cp.execSync(command, {
             stdio: "ignore",
-            maxBuffer: 1024 * 1024 * 256 // 256MB
+            maxBuffer: 1024 * 1024 * 512 // 512MB
         });
     }
 }
