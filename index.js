@@ -10,7 +10,6 @@ const yaml = require("yaml");
 const artifactClient = artifact.create();
 
 const version = core.getInput("minecraft-version");
-const buildtools = core.getInput("buildtools");
 const artifactName = core.getInput("artifact-name");
 
 class Test {
