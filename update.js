@@ -11,8 +11,6 @@ function exec(command) {
 }
 
 const VERSION = process.argv[2];
-const TOKEN = process.argv[3];
-const BRANCH = process.argv[4];
 
 exec("sudo apt update");
 

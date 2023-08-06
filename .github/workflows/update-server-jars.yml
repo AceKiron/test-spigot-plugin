@@ -22,13 +22,19 @@ jobs:
       
       - name: Update ${{ matrix.minecraft-versions }} server JAR
         run: node ./update.js ${{ matrix.minecraft-versions }}
-      
-      - name: Commit update
-        run: |
-          git add spigot-${{ matrix.minecraft-versions }}.jar
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git commit -m "Update spigot-${{ matrix.minecraft-versions }}.jar"
+
+      - name: Upload JAR as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.minecraft-versions }}-jar
+          path: ./spigot-${{ matrix.minecraft-versions }}.jar
+
+  push-changes:
+    needs: update-jar
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
 
       - name: Push changes
         uses: ad-m/github-push-action@master
