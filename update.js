@@ -6,7 +6,10 @@ function exec(command) {
         return cp.execSync(command);
     } catch (err) {
         console.warn(err.message);
-        return cp.execSync(command, { stdio: "ignore" });
+        return cp.execSync(command, {
+            stdio: "ignore",
+            maxBuffer: 1024 * 1024 * 256 // 256MB
+        });
     }
 }
 
