@@ -12,9 +12,11 @@ const artifactClient = artifact.create();
 const version = core.getInput("minecraft-version");
 const artifactName = core.getInput("artifact-name");
 
+const yamlConfig = yaml.parse(fs.readFileSync(path.join(".", ".acekiron", "test-spigot-plugin.yml"), "utf8"));
+
 class Test {
     constructor() {
-        this.requiredMessagesLeft = yaml.parse(fs.readFileSync(path.join(".", ".acekiron", "test-spigot-plugin.yml"), "utf8"))["required-messages"];
+        this.requiredMessagesLeft = yamlConfig["required-messages"] || [];
     }
 
     markRequiredMessageCompleted(message) {
@@ -28,6 +30,11 @@ class Test {
     }
 }
 const test = new Test();
+
+let curlCommand = "curl";
+if (core.isDebug()) {
+    curlCommand += " -v";
+}
 
 (async function() {
     await exec.exec("sudo apt update");
@@ -48,21 +55,20 @@ const test = new Test();
             return;
     }
 
-    if (core.isDebug()) {
-        await exec.exec(`curl -v -o spigot.jar https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/spigot-${version}.jar`);
-        await exec.exec(`curl -v -o eula.txt https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/accept-eula.txt`);
-    } else {
-        await exec.exec(`curl -o spigot.jar https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/spigot-${version}.jar`);
-        await exec.exec(`curl -o eula.txt https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/accept-eula.txt`);
-    }
+    await exec.exec(`${curlCommand} -o spigot.jar https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/spigot-${version}.jar`);
+    await exec.exec(`${curlCommand} -o eula.txt https://raw.githubusercontent.com/AceKiron/test-spigot-plugin/main/accept-eula.txt`);
 
     await io.mkdirP(path.join(".", "plugins"));
     await artifactClient.downloadArtifact(artifactName, path.join(".", "plugins"), {
         createArtifactFolder: false
     });
 
+    for (const url of yamlConfig["dependency-plugins"] || []) {
+        await exec.exec(`${curlCommand} -o plugins/${Math.random().toString(36).substring(2)}.jar ${url}`);
+    }
+
     if (core.isDebug()) {
-        await exec.exec("ls -R");
+        await exec.exec("ls -R plugins");
     }
 
     await exec.exec(`java -jar spigot.jar`, undefined, {
