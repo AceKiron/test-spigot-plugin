@@ -63,8 +63,8 @@ if (core.isDebug()) {
         createArtifactFolder: false
     });
 
-    for (const url of yamlConfig["dependency-plugins"] || []) {
-        await exec.exec(`${curlCommand} -o plugins/${Math.random().toString(36).substring(2)}.jar ${url}`);
+    for (const dependency of fs.readdirSync(path.join(".", ".acekiron", "test-spigot-plugin"))) {
+        await io.cp(path.join(".", ".acekiron", "test-spigot-plugin", dependency), path.join(".", "plugins", dependency));
     }
 
     if (core.isDebug()) {
