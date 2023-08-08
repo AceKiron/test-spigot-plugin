@@ -20,7 +20,6 @@ class Test {
     markRequiredMessageCompleted(message) {
         console.log(`Mark required message as completed: ${message}`);
         const index = this.requiredMessagesLeft.indexOf(message);
-        console.log(index);
         if (index > -1) this.requiredMessagesLeft.splice(index, 1);
     }
 
@@ -62,10 +61,13 @@ const test = new Test();
         createArtifactFolder: false
     });
 
+    if (core.isDebug()) {
+        await exec.exec("ls -R");
+    }
+
     await exec.exec(`java -jar spigot.jar`, undefined, {
         listeners: {
             stdout: (data) => {
-                console.log(data.toString().split("\n").length);
                 for (const line of data.toString().split("\n")) {
                     if (line.match(/^\[.+WARN\].+/)) console.warn(line);
                     else if (line.match(/^\[.+ERROR\].+/)) console.error(line);
@@ -84,7 +86,7 @@ const test = new Test();
         input: "stop"
     });
 
-    if (!test.isSuccess()) core.setFailed(`Test failed\n${test.requiredMessagesLeft.toString()}`);
+    if (!test.isSuccess()) core.setFailed(`Test failed\n${test.requiredMessagesLeft.join("\n")}`);
 })().catch(err => {
     core.setFailed(`Failed to test plugin: ${err}`);
 });
