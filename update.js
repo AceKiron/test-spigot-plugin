@@ -25,7 +25,7 @@ switch (VERSION) {
         exec("sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64");
         break;
 
-    case "1.17.1": case "1.18.2": case "1.19.4": case "1.20.1":
+    case "1.17.1": case "1.18.2": case "1.19.4": case "1.20.4":
         exec("sudo apt install java-common openjdk-17-jdk openjdk-17-jre");
         exec("sudo update-java-alternatives --set /usr/lib/jvm/java-1.17.0-openjdk-amd64");
         break;
